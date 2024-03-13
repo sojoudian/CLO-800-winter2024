@@ -26,10 +26,15 @@ $nic = New-AzureRmNetworkInterface -Name "$($vmName)NIC" -ResourceGroupName $res
 # Create VM Configuration
 $cred = Get-Credential -Message "Enter a username and password for the VM."
 
+#$vmConfig = New-AzureRmVMConfig -VMName $vmName -VMSize $vmSize | 
+#    Set-AzureRmVMOperatingSystem -Windows -ComputerName $vmName -Credential $cred -ProvisionVMAgent -EnableAutoUpdate |
+#    Set-AzureRmVMSourceImage -PublisherName "MicrosoftWindowsServer" -Offer "WindowsServer" -Skus "2019-Datacenter" -Version "latest" |
+#    Add-AzureRmVMNetworkInterface -Id $nic.Id
 $vmConfig = New-AzureRmVMConfig -VMName $vmName -VMSize $vmSize | 
     Set-AzureRmVMOperatingSystem -Windows -ComputerName $vmName -Credential $cred -ProvisionVMAgent -EnableAutoUpdate |
     Set-AzureRmVMSourceImage -PublisherName "MicrosoftWindowsServer" -Offer "WindowsServer" -Skus "2019-Datacenter" -Version "latest" |
-    Add-AzureRmVMNetworkInterface -Id $nic.Id
+    Add-AzureRmVMNetworkInterface -Id $nic.Id |
+    Set-AzureRmVMOSDisk -CreateOption FromImage -StorageAccountType Standard_LRS    
 
 # Create the VM
 New-AzureRmVM -ResourceGroupName $resourceGroupName -Location $location -VM $vmConfig
