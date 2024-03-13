@@ -1,7 +1,7 @@
-$resourceGroupName = "rs_4"
+$resourceGroupName = "rs_7"
 $location = "CanadaCentral"
-$vmName = "SRV-01"
-$vmSize = "Standard_DS1_v2"
+$vmName = "SRV-04"
+$vmSize = "Standard_D2s_v3"
 
 # Create a new resource group
 New-AzureRmResourceGroup -Name $resourceGroupName -Location $location
