@@ -45,3 +45,10 @@ $encodedScript = [Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBy
 
 Set-AzVMExtension -ResourceGroupName $resourceGroupName -VMName $vmName -Name "SetupIIS" -Publisher "Microsoft.Compute" -ExtensionType "CustomScriptExtension" -TypeHandlerVersion "1.4" -Location $location -Settings @{"commandToExecute" = "powershell -EncodedCommand $encodedScript"}
 
+
+$vm = Get-AzVM -Name $vmName -ResourceGroupName $resourceGroupName
+$nic = Get-AzNetworkInterface -ResourceGroupName $resourceGroupName | Where-Object { $_.VirtualMachine.Id -eq $vm.Id }
+$publicIp = Get-AzPublicIpAddress -ResourceGroupName $resourceGroupName | Where-Object { $_.Id -eq $nic.IpConfigurations[0].PublicIpAddress.Id }
+$publicIp.IpAddress
+
+
