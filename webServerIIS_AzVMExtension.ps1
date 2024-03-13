@@ -1,6 +1,6 @@
-$resourceGroupName = "rs_3"
+$resourceGroupName = "rs_4"
 $location = "CanadaCentral"
-$vmName = "webServer"
+$vmName = "SRV-01"
 $vmSize = "Standard_DS1_v2"
 
 # Create a new resource group
@@ -38,8 +38,7 @@ New-AzureRmVM -ResourceGroupName $resourceGroupName -Location $location -VM $vmC
 $customScript = @"
 Install-WindowsFeature -name Web-Server -IncludeManagementTools
 Start-Sleep -s 10
-\$content = $vmName
-Set-Content -Path 'C:\inetpub\wwwroot\index.html' -Value \$content
+Set-Content -Path 'C:\inetpub\wwwroot\index.html' -Value "Hello from CLO-800"
 "@
 
 $encodedScript = [Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($customScript))
