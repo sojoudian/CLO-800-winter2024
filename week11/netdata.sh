@@ -8,5 +8,6 @@ netstat -tpuln
 
 sudo su
 apt install nginx
-dd if=/dev/zero of=/path/to/your/10GBfile.bin bs=1G count=10
+cd /var/www/html/
+dd if=/dev/zero of=file.bin bs=1G count=10
 
