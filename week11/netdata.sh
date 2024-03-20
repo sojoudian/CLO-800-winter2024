@@ -4,3 +4,9 @@ sudo systemctl start netdata
 sudo systemctl enable netdata
 apt install net-tools
 netstat -tpuln
+
+
+sudo su
+apt install nginx
+dd if=/dev/zero of=/path/to/your/10GBfile.bin bs=1G count=10
+
